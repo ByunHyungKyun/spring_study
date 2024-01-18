@@ -15,22 +15,15 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public MemberService(MemberRepository memberRepository){
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
     public Long join(Member member) {
-        long start = System.currentTimeMillis();
 
-        try{
-            validateDuplicationMember(member);
-            memberRepository.save(member);
-            return member.getId();
-        }finally {
-        long finish= System.currentTimeMillis();
-        long time = finish-start;
-            System.out.println("join = "+time);
-        }
+        validateDuplicationMember(member);
+        memberRepository.save(member);
+        return member.getId();
     }
 
     private void validateDuplicationMember(Member member) {
@@ -39,11 +32,11 @@ public class MemberService {
         });
     }
 
-    public List<Member> findMembers(){
-       return  memberRepository.findAll();
+    public List<Member> findMembers() {
+        return memberRepository.findAll();
     }
 
-    public Optional<Member> findOne(Long id){
+    public Optional<Member> findOne(Long id) {
         return memberRepository.findById(id);
     }
 
